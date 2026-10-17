@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classic Pound Cake</title>
+<style>
+  :root {
+    --cream: #fdf6ec;
+    --butter: #f3e2c3;
+    --caramel: #b5793a;
+    --cocoa: #5b4632;
+    --ink: #3a2f26;
+    --accent: #a4552e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .hero {
+    background: linear-gradient(135deg, var(--butter), var(--cream));
+    text-align: center;
+    padding: 3.5rem 1.5rem 3rem;
+    border-bottom: 4px solid var(--caramel);
+  }
+  .hero .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 {
+    font-size: 2.8rem;
+    color: var(--cocoa);
+    margin-bottom: 0.5rem;
+  }
+  .hero p {
+    max-width: 560px;
+    margin: 0 auto;
+    font-style: italic;
+    color: var(--cocoa);
+  }
+  .meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1.75rem;
+  }
+  .meta div {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid var(--butter);
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+  }
+  .meta strong { color: var(--accent); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+  h2 {
+    font-size: 1.7rem;
+    color: var(--cocoa);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--butter);
+  }
+  section { margin-bottom: 3rem; }
+  .intro { font-size: 1.05rem; }
+  .intro p { margin-bottom: 1rem; }
+  .ingredients {
+    background: #fff;
+    border: 1px solid var(--butter);
+    border-radius: 14px;
+    padding: 1.75rem 2rem;
+    box-shadow: 0 4px 14px rgba(91,70,50,0.08);
+  }
+  .ingredients ul { list-style: none; }
+  .ingredients li {
+    padding: 0.55rem 0;
+    border-bottom: 1px dashed var(--butter);
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .ingredients li:last-child { border-bottom: none; }
+  .ingredients .amt {
+    min-width: 130px;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .steps { counter-reset: step; }
+  .step {
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+  }
+  .step .num {
+    counter-increment: step;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--caramel);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  .step .num::before { content: counter(step); }
+  .step p { padding-top: 0.5rem; }
+  .tips {
+    background: var(--butter);
+    border-left: 5px solid var(--caramel);
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem 1.75rem;
+  }
+  .tips h3 { color: var(--cocoa); margin-bottom: 0.75rem; font-size: 1.2rem; }
+  .tips ul { padding-left: 1.25rem; }
+  .tips li { margin-bottom: 0.5rem; }
+  .print-btn {
+    display: block;
+    margin: 0 auto 2.5rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.75rem 2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(164,85,46,0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .print-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(164,85,46,0.4); }
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--cocoa);
+    color: var(--butter);
+    font-size: 0.9rem;
+  }
+  @media (max-width: 560px) {
+    .hero h1 { font-size: 2rem; }
+    .ingredients .amt { min-width: 90px; }
+  }
+  @media print {
+    .print-btn, footer { display: none; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">A Timeless Favorite</div>
+  <h1>Classic Pound Cake</h1>
+  <p>Four simple ingredients, one perfect ratio — the cake that has graced tea tables for centuries.</p>
+  <div class="meta">
+    <div><strong>Serves</strong> 12 slices</div>
+    <div><strong>Prep</strong> 20 min</div>
+    <div><strong>Bake</strong> 60–70 min</div>
+    <div><strong>Total</strong> ~1.5 hrs</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <button class="print-btn" onclick="window.print()">🖨 Print This Recipe</button>
+
+  <section class="intro">
+    <h2>About This Cake</h2>
+    <p>Named for its original recipe — one pound each of flour, sugar, butter, and eggs — pound cake is the ultimate demonstration that simplicity, done well, beats complexity. The result is a dense, buttery, deeply satisfying cake with a golden crust and a tender crumb.</p>
+    <p>It's equally at home with morning coffee, afternoon tea, or a scoop of vanilla ice cream for dessert. Serve it plain, or dust with powdered sugar and a few fresh berries.</p>
+  </section>
+
+  <section>
+    <h2>Ingredients</h2>
+    <div class="ingredients">
+      <ul>
+        <li><span class="amt">2 cups</span><span>unsalted butter, softened to room temperature</span></li>
+        <li><span class="amt">2 cups</span><span>granulated sugar</span></li>
+        <li><span class="amt">4</span><span>large eggs, room temperature</span></li>
+        <li><span class="amt">1 tsp</span><span>vanilla extract</span></li>
+        <li><span class="amt">2 ½ cups</span><span>all-purpose flour, spooned and leveled</span></li>
+        <li><span class="amt">½ tsp</span><span>fine salt</span></li>
+        <li><span class="amt">—</span><span>butter &amp; flour for the pan</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="steps">
+    <h2>Instructions</h2>
+    <div class="step"><div class="num"></div><p>Preheat the oven to 325°F (165°C). Butter a 9×5-inch loaf pan thoroughly, then dust with flour, tapping out the excess. (For extra insurance against sticking, line the pan with parchment paper before adding flour.)</p></div>
+    <div class="step"><div class="num"></div><p>In a large bowl, cream the butter and sugar together with an electric mixer on medium-high speed for 4–5 minutes, until pale, fluffy, and significantly increased in volume. This step builds the cake's texture — don't rush it.</p></div>
+    <div class="step"><div class="num"></div><p>Add the eggs one at a time, beating well after each addition. Scrape down the sides of the bowl as needed. Stir in the vanilla.</p></div>
+    <div class="step"><div class="num"></div><p>In a separate bowl, whisk together the flour and salt. Add to the butter mixture in three additions, mixing on low speed just until incorporated after each. Overmixing here makes the cake tough.</p></div>
+    <div class="step"><div class="num"></div><p>Scrape the batter into the prepared pan and smooth the top. Bake for 60–70 minutes, until the top is golden brown and a toothpick inserted into the center comes out clean. If the top is browning too quickly, cover loosely with foil.</p></div>
+    <div class="step"><div class="num"></div><p>Let the cake cool in the pan for 20 minutes, then turn it out onto a wire rack to cool completely. Slice once fully cooled for the cleanest cuts.</p></div>
+  </section>
+
+  <section>
+    <div class="tips">
+      <h3>Baker's Tips</h3>
+      <ul>
+        <li><strong>Why 4 eggs?</strong> The classic modern ratio calls for 4 large eggs for this amount of butter and sugar. (The old "one pound each" tradition means about 8, but 4 is what reliably gives a tender, buttery crumb — not a dry or eggy one.)</li>
+        <li><strong>Room temperature is key.</strong> Cold butter and eggs won't cream properly, and the batter may curdle.</li>
+        <li><strong>Spoon and level the flour.</strong> Scooping packs flour into the cup and dries out the cake.</li>
+        <li><strong>Low and slow.</strong> A moderate oven temperature gives an even bake and a tender crumb.</li>
+        <li><strong>Make it yours.</strong> Try a lemon glaze (2 tbsp lemon juice + ½ cup powdered sugar), orange zest in the batter, or a dusting of cinnamon sugar over the top before baking.</li>
+        <li><strong>Storage.</strong> Keeps well wrapped at room temperature for 3–4 days, or freeze slices for up to 2 months.</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Baked with butter &amp; patience — Classic Pound Cake
+</footer>
+
+</body>
+</html>
