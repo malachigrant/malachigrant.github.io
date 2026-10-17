@@ -5,6 +5,7 @@
 <title>Artifacts</title>
 <style>
   body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+  #search { width: 100%; box-sizing: border-box; padding: 0.4rem 0.6rem; font-size: 1rem; margin-bottom: 1rem; }
   ul { list-style: none; padding: 0; }
   li { padding: 0.3rem 0; border-bottom: 1px solid #eee; }
   a { text-decoration: none; color: #0645ad; }
@@ -14,29 +15,35 @@
 </head>
 <body>
 <h1>Artifacts</h1>
+<input id="search" type="search" placeholder="Filter artifacts&hellip;" autocomplete="off">
 <ul id="list"><li>Loading&hellip;</li></ul>
 <script>
-  const REPO = "malachigrant/malachigrant.github.io";
-  const DIR = "artifacts";
+  let files = [];
 
-  fetch(`https://api.github.com/repos/${REPO}/contents/${DIR}`)
+  fetch("manifest.json")
     .then(res => {
-      if (!res.ok) throw new Error(`GitHub API responded ${res.status}`);
+      if (!res.ok) throw new Error(`Got ${res.status} fetching manifest`);
       return res.json();
     })
-    .then(entries => {
-      const files = entries
-        .filter(e => e.type === "file")
-        .sort((a, b) => a.name.localeCompare(b.name));
-      const list = document.getElementById("list");
-      list.innerHTML = files.length
-        ? files.map(f => `<li><a href="${DIR}/${f.name}">${f.name}</a></li>`).join("")
-        : "<li>No artifacts found.</li>";
+    .then(manifest => {
+      files = manifest.files;
+      render("");
     })
     .catch(err => {
       document.getElementById("list").innerHTML =
         `<li class="error">Could not load artifacts: ${err.message}</li>`;
     });
+
+  function render(query) {
+    const q = query.trim().toLowerCase();
+    const list = document.getElementById("list");
+    const shown = q ? files.filter(f => f.toLowerCase().includes(q)) : files;
+    list.innerHTML = shown.length
+      ? shown.map(f => `<li><a href="artifacts/${f}">${f}</a></li>`).join("")
+      : "<li>No artifacts found.</li>";
+  }
+
+  document.getElementById("search").addEventListener("input", e => render(e.target.value));
 </script>
 </body>
 </html>

@@ -18,9 +18,8 @@ jobs:
           files = sorted(
               f for f in os.listdir("artifacts")
               if os.path.isfile(os.path.join("artifacts", f))
-              and f != "manifest.json"
           )
-          with open("artifacts/manifest.json", "w") as fh:
+          with open("manifest.json", "w") as fh:
               json.dump({"files": files}, fh, indent=2)
               fh.write("\n")
           EOF
@@ -29,7 +28,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add artifacts/manifest.json
+          git add manifest.json
           if ! git diff --cached --quiet; then
             git commit -m "Regenerate artifact manifest"
             git push
