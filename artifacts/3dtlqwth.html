@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homemade Pizza Recipe</title>
+<style>
+  :root {
+    --crust: #e8a33d;
+    --crust-dark: #c97b1e;
+    --tomato: #d64528;
+    --basil: #3f7a3f;
+    --cheese: #f6e3a1;
+    --ink: #2b2118;
+    --paper: #fff8ef;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(135deg, var(--tomato), #a82f18);
+    color: #fff;
+    text-align: center;
+    padding: 3rem 1rem 3.5rem;
+  }
+  header h1 {
+    font-size: 2.6rem;
+    letter-spacing: 1px;
+    margin-bottom: .5rem;
+  }
+  header p {
+    font-style: italic;
+    opacity: .9;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .pizza {
+    width: 180px;
+    height: 180px;
+    margin: 1.5rem auto 0;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 30% 30%, var(--cheese) 0 12%, transparent 13%),
+      radial-gradient(circle at 65% 45%, #e05a35 0 10%, transparent 11%),
+      radial-gradient(circle at 45% 70%, #e05a35 0 9%, transparent 10%),
+      radial-gradient(circle at 75% 70%, var(--basil) 0 7%, transparent 8%),
+      radial-gradient(circle at 25% 60%, var(--basil) 0 6%, transparent 7%),
+      radial-gradient(circle at 55% 25%, var(--cheese) 0 14%, transparent 15%),
+      radial-gradient(circle, #f3d98b 0 78%, var(--crust) 79% 100%);
+    box-shadow: 0 10px 25px rgba(0,0,0,.3);
+  }
+  .meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1.2rem;
+    font-size: .95rem;
+  }
+  .meta span {
+    background: rgba(255,255,255,.15);
+    padding: .35rem .9rem;
+    border-radius: 999px;
+  }
+  main {
+    max-width: 860px;
+    margin: -1.5rem auto 3rem;
+    padding: 0 1rem;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.08);
+    padding: 1.8rem 2rem;
+    margin-bottom: 1.8rem;
+  }
+  .card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: .5rem;
+    border-bottom: 3px solid var(--crust);
+    display: inline-block;
+  }
+  .ingredients {
+    list-style: none;
+    columns: 2;
+    column-gap: 2.5rem;
+  }
+  .ingredients li {
+    padding: .35rem 0 .35rem 1.4rem;
+    position: relative;
+    break-inside: avoid;
+  }
+  .ingredients li::before {
+    content: "•";
+    position: absolute;
+    left: .2rem;
+    color: var(--tomato);
+    font-weight: bold;
+  }
+  .ingredients .amount {
+    color: var(--crust-dark);
+    font-weight: bold;
+  }
+  ol.steps {
+    list-style: none;
+    counter-reset: step;
+  }
+  ol.steps li {
+    counter-increment: step;
+    position: relative;
+    padding: .6rem 0 .6rem 3rem;
+  }
+  ol.steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: .55rem;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    background: var(--crust);
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+  .tips ul {
+    list-style: none;
+  }
+  .tips li {
+    padding: .4rem 0 .4rem 1.6rem;
+    position: relative;
+  }
+  .tips li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: var(--crust);
+  }
+  .tip-highlight {
+    background: #fdf3e0;
+    border-left: 4px solid var(--crust);
+    padding: .8rem 1rem;
+    border-radius: 0 8px 8px 0;
+    margin-top: 1rem;
+    font-style: italic;
+  }
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: .9rem;
+    color: #8a7a68;
+  }
+  @media (max-width: 600px) {
+    .ingredients { columns: 1; }
+    header h1 { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Homemade Pizza</h1>
+  <p>Crackly crust, stretchy cheese, and fresh toppings — the classic Margherita, done right.</p>
+  <div class="pizza" aria-hidden="true"></div>
+  <div class="meta">
+    <span>⏱ 1 hr 15 min</span>
+    <span>👥 Serves 2–4</span>
+    <span>🔥 250°C / 480°F</span>
+    <span>📊 Medium</span>
+  </div>
+</header>
+<main>
+  <section class="card">
+    <h2>Ingredients</h2>
+    <ul class="ingredients">
+      <li><span class="amount">4 cups</span> bread flour (00 flour is ideal)</li>
+      <li><span class="amount">1 1/3 cups</span> warm water</li>
+      <li><span class="amount">1 packet</span> dry yeast (2 1/4 tsp)</li>
+      <li><span class="amount">1 1/2 tsp</span> fine sea salt</li>
+      <li><span class="amount">1 tbsp</span> olive oil</li>
+      <li><span class="amount">1 1/4 cups</span> crushed San Marzano tomatoes</li>
+      <li><span class="amount">1 1/2 cups</span> fresh mozzarella, torn</li>
+      <li><span class="amount">10 leaves</span> fresh basil</li>
+      <li><span class="amount">1 pinch</span> sugar</li>
+      <li><span class="amount">—</span> semolina, for dusting</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Method</h2>
+    <ol class="steps">
+      <li><strong>Make the dough.</strong> Dissolve the yeast in warm water, add flour and salt, then knead for 10 minutes until smooth and elastic. Add olive oil at the end.</li>
+      <li><strong>First rise.</strong> Cover the bowl with a damp cloth and let the dough double in size, about 1 hour, in a warm spot.</li>
+      <li><strong>Shape the pizzas.</strong> Punch down the dough, divide into 2 balls, and let them rest 15 minutes. On a semolina-dusted board, stretch each ball from the center outward, leaving a puffy rim.</li>
+      <li><strong>Make the sauce.</strong> Mix crushed tomatoes with a pinch of salt, sugar, and a drizzle of olive oil. Keep it simple — no cooking needed.</li>
+      <li><strong>Top.</strong> Spread a thin layer of sauce, scatter torn mozzarella, and add a few basil leaves. Finish with a drizzle of olive oil.</li>
+      <li><strong>Bake hot.</strong> Preheat the oven to its maximum (250°C / 480°F) with a pizza stone or inverted baking tray inside, for at least 30 minutes. Bake the pizza for 8–10 minutes until the crust is golden and the cheese is bubbling.</li>
+      <li><strong>Finish.</strong> Remove from the oven, add the remaining basil, and serve immediately.</li>
+    </ol>
+  </section>
+
+  <section class="card tips">
+    <h2>Pro Tips</h2>
+    <ul>
+      <li>A preheated pizza stone (or inverted tray) is the closest thing to a wood-fired oven you can buy.</li>
+      <li>Don't overload the toppings — a thin, even layer is the secret to a crisp base.</li>
+      <li>Pat the mozzarella dry with paper towels so the dough doesn't get soggy.</li>
+      <li>For a deeper flavor, refrigerate the dough up to 48 hours before baking.</li>
+    </ul>
+    <div class="tip-highlight">
+      The best pizza is eaten within two minutes of leaving the oven. Set the table before you start baking!
+    </div>
+  </section>
+</main>
+<footer>Made with 🍕 and a very hot oven.</footer>
+</body>
+</html>
