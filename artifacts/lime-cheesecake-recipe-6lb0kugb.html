@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lime Cheesecake Recipe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #f5faf5;
+            color: #2a3a2a;
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #7cb87c;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            color: #3a6b3a;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.5px;
+        }
+
+        header .subtitle {
+            font-style: italic;
+            color: #5e8b5e;
+            font-size: 1.1rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        section h2 {
+            font-size: 1.6rem;
+            color: #3a6b3a;
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid #7cb87c;
+        }
+
+        .ingredients {
+            list-style: none;
+            margin-bottom: 1.2rem;
+        }
+
+        .ingredients li {
+            padding: 0.35rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .ingredients li::before {
+            content: "•";
+            position: absolute;
+            left: 0.3rem;
+            color: #7cb87c;
+            font-weight: bold;
+        }
+
+        .ingredients .note {
+            font-style: italic;
+            color: #5e8b5e;
+            font-size: 0.9rem;
+        }
+
+        ol.steps {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        ol.steps li {
+            padding: 0.4rem 0;
+        }
+
+        ol.steps li strong {
+            color: #3a6b3a;
+        }
+
+        .cook-time {
+            background: #e8f5e8;
+            border-radius: 8px;
+            padding: 0.8rem 1.2rem;
+            margin-top: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .cook-time .time-label {
+            font-weight: bold;
+            color: #3a6b3a;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #7cb87c;
+            font-style: italic;
+            color: #5e8b5e;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lime Cheesecake</h1>
+            <p class="subtitle">Bright, tangy, and perfectly creamy with a graham cracker crust</p>
+        </header>
+
+        <section>
+            <h2>Crust</h2>
+            <ul class="ingredients">
+                <li>1.5 cups graham cracker crumbs</li>
+                <li>4 tbsp (50g) melted butter</li>
+                <li>2 tbsp sugar</li>
+            </ul>
+            <div class="cook-time">
+                <span class="time-label">Bake:</span> 350°F for 8–10 minutes
+            </div>
+        </section>
+
+        <section>
+            <h2>Cake</h2>
+            <ul class="ingredients">
+                <li>3 blocks cream cheese <span class="note">(room temperature)</span></li>
+                <li>1 cup sugar</li>
+                <li>1 tbsp corn starch</li>
+                <li>2/3 cup heavy cream</li>
+                <li>4 eggs</li>
+                <li>1/2 cup lime juice</li>
+                <li>1 tbsp lime zest</li>
+                <li>1.5 tsp vanilla extract</li>
+            </ul>
+            <ol class="steps">
+                <li>Beat cream cheese, sugar, and corn starch together until smooth.</li>
+                <li>Add heavy cream, lime juice, lime zest, and vanilla. Mix until <strong>fully smooth</strong>.</li>
+                <li>Add eggs <strong>one at a time</strong> — mix just until incorporated (don't overbeat).</li>
+                <li>Pour into pan onto the crust. Gently tap the pan on the counter a few times to release trapped air.</li>
+                <li>Bake at <strong>300°F for 60 minutes</strong>, then turn off the oven and crack the door open for an additional <strong>30 minutes</strong>.</li>
+                <li>Remove from oven and let cool completely.</li>
+                <li>Place in the fridge to set.</li>
+            </ol>
+        </section>
+
+        <footer>
+            <p>Enjoy! Let it chill overnight for the best texture.</p>
+        </footer>
+    </div>
+</body>
+</html>
