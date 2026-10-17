@@ -1,1 +1,42 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta content="ie=edge" http-equiv="x-ua-compatible"><title>Julia How-To Guide</title></head><body><div id="root"></div><script src="/bundle.js"></script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Artifacts</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+  ul { list-style: none; padding: 0; }
+  li { padding: 0.3rem 0; border-bottom: 1px solid #eee; }
+  a { text-decoration: none; color: #0645ad; }
+  a:hover { text-decoration: underline; }
+  .error { color: #b00020; }
+</style>
+</head>
+<body>
+<h1>Artifacts</h1>
+<ul id="list"><li>Loading&hellip;</li></ul>
+<script>
+  const REPO = "malachigrant/malachigrant.github.io";
+  const DIR = "artifacts";
+
+  fetch(`https://api.github.com/repos/${REPO}/contents/${DIR}`)
+    .then(res => {
+      if (!res.ok) throw new Error(`GitHub API responded ${res.status}`);
+      return res.json();
+    })
+    .then(entries => {
+      const files = entries
+        .filter(e => e.type === "file")
+        .sort((a, b) => a.name.localeCompare(b.name));
+      const list = document.getElementById("list");
+      list.innerHTML = files.length
+        ? files.map(f => `<li><a href="${DIR}/${f.name}">${f.name}</a></li>`).join("")
+        : "<li>No artifacts found.</li>";
+    })
+    .catch(err => {
+      document.getElementById("list").innerHTML =
+        `<li class="error">Could not load artifacts: ${err.message}</li>`;
+    });
+</script>
+</body>
+</html>
