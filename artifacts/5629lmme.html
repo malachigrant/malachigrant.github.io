@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluffy Buttermilk Pancakes</title>
+<style>
+  :root {
+    --cream: #fff8ef;
+    --butter: #f6d98b;
+    --caramel: #c98a3a;
+    --choc: #4a2f1a;
+    --maple: #a5561f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", Georgia, serif;
+    background: var(--cream);
+    color: var(--choc);
+    line-height: 1.6;
+  }
+  .hero {
+    background: linear-gradient(135deg, var(--butter), var(--caramel));
+    padding: 48px 24px 64px;
+    text-align: center;
+    color: #fff;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
+  .hero p {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .meta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .meta span {
+    background: rgba(255,255,255,0.25);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+  }
+  main {
+    max-width: 900px;
+    margin: -32px auto 48px;
+    padding: 0 24px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(74,47,26,0.12);
+    padding: 32px;
+    margin-bottom: 28px;
+  }
+  .card h2 {
+    color: var(--maple);
+    font-size: 1.6rem;
+    margin-bottom: 18px;
+    border-bottom: 2px solid var(--butter);
+    padding-bottom: 8px;
+  }
+  ul.ingredients {
+    list-style: none;
+    columns: 2;
+    column-gap: 32px;
+  }
+  ul.ingredients li {
+    padding: 8px 0 8px 28px;
+    position: relative;
+    break-inside: avoid;
+  }
+  ul.ingredients li::before {
+    content: "🥞";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    font-size: 0.9rem;
+  }
+  ol.steps {
+    list-style: none;
+    counter-reset: step;
+  }
+  ol.steps li {
+    counter-increment: step;
+    padding: 14px 0 14px 56px;
+    position: relative;
+    border-bottom: 1px dashed var(--butter);
+  }
+  ol.steps li:last-child { border-bottom: none; }
+  ol.steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 36px;
+    height: 36px;
+    background: var(--caramel);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  .tips {
+    background: #fff3d6;
+    border-left: 4px solid var(--caramel);
+  }
+  .tips ul { padding-left: 20px; }
+  .tips li { margin: 8px 0; }
+  .stack {
+    text-align: center;
+    font-size: 3rem;
+    letter-spacing: 8px;
+    margin: 8px 0;
+  }
+  footer {
+    text-align: center;
+    padding: 24px;
+    color: #8a6a4a;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 600px) {
+    ul.ingredients { columns: 1; }
+  }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Fluffy Buttermilk Pancakes</h1>
+    <p>Light, golden, and impossibly fluffy — the classic breakfast stack, ready in under 20 minutes.</p>
+    <div class="meta">
+      <span>⏱ 20 min</span>
+      <span>🍽 Serves 4</span>
+      <span>📊 Easy</span>
+      <span>🔥 420 kcal / serving</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <div class="stack">🥞🥞🥞</div>
+      <h2>Ingredients</h2>
+      <ul class="ingredients">
+        <li>2 cups all-purpose flour</li>
+        <li>2 tbsp sugar</li>
+        <li>2 tsp baking powder</li>
+        <li>1 tsp baking soda</li>
+        <li>1/2 tsp salt</li>
+        <li>2 cups buttermilk</li>
+        <li>2 large eggs</li>
+        <li>3 tbsp melted butter</li>
+        <li>Vanilla extract (optional)</li>
+        <li>Maple syrup, for serving</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Instructions</h2>
+      <ol class="steps">
+        <li>Whisk the flour, sugar, baking powder, baking soda, and salt together in a large bowl.</li>
+        <li>In a separate bowl, beat the eggs, then stir in the buttermilk, melted butter, and vanilla.</li>
+        <li>Pour the wet ingredients into the dry and stir until just combined. A few lumps are fine — don't overmix.</li>
+        <li>Let the batter rest for 5 minutes so it thickens and the bubbles form.</li>
+        <li>Heat a griddle or nonstick pan over medium and lightly grease with butter.</li>
+        <li>Pour about 1/4 cup of batter per pancake. Cook until bubbles appear and edges look set, about 2–3 minutes.</li>
+        <li>Flip and cook another 1–2 minutes until golden brown.</li>
+        <li>Stack, drizzle with maple syrup, and serve warm.</li>
+      </ol>
+    </section>
+
+    <section class="card tips">
+      <h2>Pro Tips</h2>
+      <ul>
+        <li>Don't overmix — lumps keep the pancakes fluffy.</li>
+        <li>Resting the batter is the secret to tall, airy stacks.</li>
+        <li>Keep finished pancakes warm in a 200°F (95°C) oven.</li>
+        <li>No buttermilk? Mix 2 cups milk with 2 tbsp lemon juice or vinegar and let sit 5 minutes.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>Made with 🥞 and a little maple syrup.</footer>
+</body>
+</html>
