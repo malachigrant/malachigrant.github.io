@@ -2,21 +2,118 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pages</title>
 <style>
-  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
-  #search { width: 100%; box-sizing: border-box; padding: 0.4rem 0.6rem; font-size: 1rem; margin-bottom: 1rem; }
-  ul { list-style: none; padding: 0; }
-  li { padding: 0.3rem 0; border-bottom: 1px solid #eee; }
-  a { text-decoration: none; color: #0645ad; }
-  a:hover { text-decoration: underline; }
-  .error { color: #b00020; }
+  :root {
+    --bg: #0f1115;
+    --surface: #171a21;
+    --surface-hover: #1d212b;
+    --border: #262b36;
+    --text: #e8eaf0;
+    --text-dim: #9aa1b0;
+    --accent: #6d8dff;
+    --accent-glow: rgba(109, 141, 255, 0.35);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    background:
+      radial-gradient(60rem 30rem at 50% -10%, rgba(109, 141, 255, 0.12), transparent),
+      var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 640px; margin: 0 auto; padding: 3rem 1rem 4rem; }
+  header { margin-bottom: 2rem; }
+  h1 {
+    margin: 0 0 0.25rem;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, var(--text), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .subtitle { margin: 0; color: var(--text-dim); font-size: 0.95rem; }
+  .search {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  .search svg {
+    position: absolute;
+    left: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--text-dim);
+    pointer-events: none;
+  }
+  #search {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 2.75rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  #search::placeholder { color: var(--text-dim); }
+  #search:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+  }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+  li {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  }
+  li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.95rem;
+    border-radius: inherit;
+  }
+  li a .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  li a .arrow { color: var(--text-dim); transition: color 0.15s, transform 0.15s; }
+  li a:hover { background: var(--surface-hover); }
+  li a:hover .arrow { color: var(--accent); transform: translateX(3px); }
+  li:hover { border-color: var(--accent); }
+  li.empty, li.loading, li.error {
+    padding: 1.25rem 1rem;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+  li.error { color: #ff8a9a; }
 </style>
 </head>
 <body>
-<h1>Pages</h1>
-<input id="search" type="search" placeholder="Filter pages&hellip;" autocomplete="off">
-<ul id="list"><li>Loading&hellip;</li></ul>
+<div class="container">
+  <header>
+    <h1>Pages</h1>
+    <p class="subtitle">Browse the published pages.</p>
+  </header>
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="search" type="search" placeholder="Filter pages&hellip;" autocomplete="off">
+  </div>
+  <ul id="list"><li class="loading">Loading&hellip;</li></ul>
+</div>
 <script>
   let files = [];
 
@@ -39,8 +136,10 @@
     const list = document.getElementById("list");
     const shown = q ? files.filter(f => f.toLowerCase().includes(q)) : files;
     list.innerHTML = shown.length
-      ? shown.map(f => `<li><a href="pages/${f}">${f}</a></li>`).join("")
-      : "<li>No pages found.</li>";
+      ? shown.map(f =>
+          `<li><a href="pages/${f}"><span class="name">${f}</span><span class="arrow">&rarr;</span></a></li>`
+        ).join("")
+      : "<li class=\"empty\">No pages found.</li>";
   }
 
   document.getElementById("search").addEventListener("input", e => render(e.target.value));
