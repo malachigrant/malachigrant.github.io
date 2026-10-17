@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Artifacts</title>
+<title>Pages</title>
 <style>
   body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
   #search { width: 100%; box-sizing: border-box; padding: 0.4rem 0.6rem; font-size: 1rem; margin-bottom: 1rem; }
@@ -14,8 +14,8 @@
 </style>
 </head>
 <body>
-<h1>Artifacts</h1>
-<input id="search" type="search" placeholder="Filter artifacts&hellip;" autocomplete="off">
+<h1>Pages</h1>
+<input id="search" type="search" placeholder="Filter pages&hellip;" autocomplete="off">
 <ul id="list"><li>Loading&hellip;</li></ul>
 <script>
   let files = [];
@@ -31,7 +31,7 @@
     })
     .catch(err => {
       document.getElementById("list").innerHTML =
-        `<li class="error">Could not load artifacts: ${err.message}</li>`;
+        `<li class="error">Could not load pages: ${err.message}</li>`;
     });
 
   function render(query) {
@@ -39,8 +39,8 @@
     const list = document.getElementById("list");
     const shown = q ? files.filter(f => f.toLowerCase().includes(q)) : files;
     list.innerHTML = shown.length
-      ? shown.map(f => `<li><a href="artifacts/${f}">${f}</a></li>`).join("")
-      : "<li>No artifacts found.</li>";
+      ? shown.map(f => `<li><a href="pages/${f}">${f}</a></li>`).join("")
+      : "<li>No pages found.</li>";
   }
 
   document.getElementById("search").addEventListener("input", e => render(e.target.value));
