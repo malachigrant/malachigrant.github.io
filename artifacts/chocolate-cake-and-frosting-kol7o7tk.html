@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Best Chocolate Cake + Buttercream Frosting</title>
+<style>
+  :root{
+    --choc-900:#2b1a12;
+    --choc-800:#3a2418;
+    --choc-700:#4a2f1f;
+    --choc-600:#5a3a26;
+    --caramel:#b5651d;
+    --caramel-light:#d98a3d;
+    --cream:#faf5ee;
+    --cream-2:#f3e9db;
+    --card:#ffffff;
+    --ink:#2b2018;
+    --ink-soft:#6b5a4c;
+    --line:#e7dccb;
+    --good:#3f7d4e;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 500px at 50% -10%, #fff 0%, var(--cream) 45%, var(--cream-2) 100%);
+    line-height:1.6;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 80px;}
+
+  /* Header */
+  header.hero{
+    text-align:center;
+    padding:56px 20px 34px;
+    position:relative;
+  }
+  .kicker{
+    display:inline-block;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--caramel);
+    background:#fff;
+    border:1px solid var(--line);
+    padding:7px 14px;
+    border-radius:999px;
+    box-shadow:0 2px 8px rgba(74,47,31,.06);
+  }
+  header.hero h1{
+    font-size:clamp(2rem,5.5vw,3.1rem);
+    line-height:1.12;
+    margin:20px 0 12px;
+    color:var(--choc-800);
+    letter-spacing:-.01em;
+  }
+  header.hero p.sub{
+    max-width:640px;
+    margin:0 auto;
+    color:var(--ink-soft);
+    font-size:1.06rem;
+  }
+  .hero-art{font-size:2.4rem;margin-top:18px;letter-spacing:.1em;}
+
+  /* Jump nav */
+  nav.jump{
+    display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+    margin:26px 0 8px;
+  }
+  nav.jump a{
+    text-decoration:none;
+    font-weight:600;
+    font-size:.92rem;
+    color:var(--choc-700);
+    background:#fff;
+    border:1px solid var(--line);
+    padding:10px 18px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(74,47,31,.05);
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  nav.jump a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(74,47,31,.10);background:var(--cream);}
+
+  /* Section */
+  section.recipe{
+    margin-top:40px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:22px;
+    box-shadow:0 10px 30px rgba(74,47,31,.07);
+    overflow:hidden;
+  }
+  .sec-head{
+    display:flex;align-items:center;gap:16px;
+    padding:24px 26px;
+    background:linear-gradient(135deg,var(--choc-800),var(--choc-600));
+    color:#fff;
+  }
+  .sec-head .ico{
+    font-size:2rem;
+    width:60px;height:60px;flex:0 0 60px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.12);
+    border-radius:16px;
+  }
+  .sec-head h2{margin:0;font-size:1.5rem;line-height:1.2;}
+  .sec-head .by{margin:4px 0 0;font-size:.86rem;opacity:.82;}
+
+  /* Meta badges */
+  .meta{
+    display:flex;flex-wrap:wrap;gap:10px;
+    padding:18px 26px;
+    background:var(--cream);
+    border-bottom:1px solid var(--line);
+  }
+  .badge{
+    display:flex;align-items:center;gap:8px;
+    background:#fff;border:1px solid var(--line);
+    border-radius:12px;padding:9px 14px;font-size:.86rem;font-weight:600;color:var(--choc-700);
+  }
+  .badge .b-ico{font-size:1.05rem;}
+  .badge.star{color:var(--caramel);}
+
+  .cols{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+  }
+  @media(max-width:720px){.cols{grid-template-columns:1fr;}}
+
+  .panel{padding:24px 26px;}
+  .panel + .panel{border-left:1px solid var(--line);}
+  @media(max-width:720px){
+    .panel + .panel{border-left:none;border-top:1px solid var(--line);}
+  }
+  .panel h3{
+    margin:0 0 6px;font-size:1.12rem;color:var(--choc-800);
+    display:flex;align-items:center;gap:9px;
+  }
+  .panel .hint{margin:0 0 16px;font-size:.85rem;color:var(--ink-soft);}
+
+  /* Ingredients */
+  ul.ings{list-style:none;margin:0;padding:0;}
+  ul.ings li{
+    display:flex;align-items:flex-start;gap:11px;
+    padding:9px 10px;border-radius:10px;
+    transition:background .12s ease;
+  }
+  ul.ings li:hover{background:var(--cream);}
+  ul.ings label{cursor:pointer;display:flex;gap:11px;align-items:flex-start;flex:1;}
+  ul.ings input{
+    appearance:none;-webkit-appearance:none;
+    width:20px;height:20px;flex:0 0 20px;margin-top:2px;
+    border:2px solid var(--caramel);border-radius:6px;
+    cursor:pointer;position:relative;transition:background .12s ease,border-color .12s ease;
+  }
+  ul.ings input:checked{background:var(--good);border-color:var(--good);}
+  ul.ings input:checked::after{
+    content:"";position:absolute;left:5px;top:1px;width:5px;height:9px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+  }
+  ul.ings .txt{transition:color .12s ease,opacity .12s ease;}
+  ul.ings li.done .txt{color:var(--ink-soft);text-decoration:line-through;opacity:.7;}
+  ul.ings .note{color:var(--ink-soft);font-size:.9em;}
+
+  /* Progress */
+  .progress{
+    margin-top:16px;display:flex;align-items:center;gap:12px;
+  }
+  .bar{flex:1;height:8px;background:var(--cream-2);border-radius:999px;overflow:hidden;}
+  .bar > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--caramel-light),var(--good));transition:width .25s ease;}
+  .progress .lbl{font-size:.82rem;font-weight:600;color:var(--ink-soft);white-space:nowrap;}
+
+  /* Instructions */
+  ol.steps{list-style:none;margin:0;padding:0;counter-reset:step;}
+  ol.steps li{
+    position:relative;padding:0 0 18px 46px;counter-increment:step;
+  }
+  ol.steps li::before{
+    content:counter(step);
+    position:absolute;left:0;top:0;
+    width:32px;height:32px;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:.95rem;color:#fff;
+    background:linear-gradient(135deg,var(--caramel),var(--choc-600));
+    border-radius:50%;
+    box-shadow:0 3px 8px rgba(74,47,31,.18);
+  }
+  ol.steps li:last-child{padding-bottom:0;}
+  ol.steps .step-text{font-size:.98rem;}
+
+  /* Nutrition */
+  .nutrition{
+    margin:0 26px 26px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px 20px;
+  }
+  .nutrition h4{margin:0 0 12px;font-size:.98rem;color:var(--choc-800);display:flex;align-items:center;gap:8px;}
+  .nut-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;}
+  .nut{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;text-align:center;}
+  .nut .v{font-weight:700;font-size:1.05rem;color:var(--choc-700);}
+  .nut .k{font-size:.78rem;color:var(--ink-soft);margin-top:2px;}
+
+  /* Footer */
+  footer{
+    margin-top:44px;text-align:center;color:var(--ink-soft);font-size:.86rem;
+  }
+  footer a{color:var(--caramel);text-decoration:none;font-weight:600;}
+  footer a:hover{text-decoration:underline;}
+
+  /* Print */
+  @media print{
+    body{background:#fff;}
+    section.recipe{box-shadow:none;break-inside:avoid;}
+    nav.jump,.progress{display:none;}
+    ul.ings input{border-color:#999;}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <span class="kicker">One Bowl · Quick · Delicious</span>
+      <h1>The Best Chocolate Cake<br>with Buttercream Frosting</h1>
+      <p class="sub">A complete, two-part recipe: a moist one-bowl chocolate cake topped with fluffy perfect chocolate buttercream frosting. Check off ingredients as you gather them.</p>
+      <div class="hero-art">🎂 🍫</div>
+      <nav class="jump">
+        <a href="#cake">🎂 The Cake</a>
+        <a href="#frosting">🍫 The Frosting</a>
+      </nav>
+    </header>
+
+    <!-- ============ CAKE ============ -->
+    <section class="recipe" id="cake">
+      <div class="sec-head">
+        <div class="ico">🎂</div>
+        <div>
+          <h2>The Best Chocolate Cake Recipe</h2>
+        </div>
+      </div>
+
+      <div class="meta">
+        <span class="badge"><span class="b-ico">⏱️</span> 45 min total</span>
+        <span class="badge"><span class="b-ico">🧁</span> 24 servings</span>
+        <span class="badge star"><span class="b-ico">⭐</span> 4.99 / 5 (5,444 ratings)</span>
+        <span class="badge"><span class="b-ico">🔥</span> 124 kcal / serving</span>
+      </div>
+
+      <div class="cols">
+        <div class="panel">
+          <h3>🥣 Ingredients</h3>
+          <p class="hint">Makes two 9-inch layers.</p>
+          <ul class="ings" data-ings>
+            <li><label><input type="checkbox"><span class="txt">2 cups all-purpose flour <span class="note">(spoon + level)</span></span></label></li>
+            <li><label><input type="checkbox"><span class="txt">2 cups sugar</span></label></li>
+            <li><label><input type="checkbox"><span class="txt">¾ cup unsweetened cocoa powder</span></label></li>
+            <li><label><input type="checkbox"><span class="txt">2 teaspoons baking powder</span></label></li>
+            <li><label><input type="checkbox"><span class="txt">1½ teaspoons baking soda</span></label></li>
+            <li><label><input type="checkbox"><span class="txt">1 teaspoon kosher salt</span></label></li>
+            <li><label><input type="checkbox"><span class="txt">1 teaspoon espresso powder <span class="note">(homemade or store-bought)</span></span></label></li>
+            <li><label><input type="checkbox"><span class="txt">1 cup milk <span class="note">(or buttermilk, almond, or coconut milk)</span></span></label></li>
+            <li><label><input type="checkbox"><span class="txt">½ cup vegetable oil <span class="note">(or canola, or melted coconut oil)</span></span></label></li>
+            <li><label><input type="checkbox"><span class="txt">2 large eggs</span></label></li>
+            <li><label><input type="checkbox"><span class="txt">2 teaspoons vanilla extract</span></label></li>
+            <li><label><input type="checkbox"><span class="txt">1 cup boiling water</span></label></li>
+            <li><label><input type="checkbox"><span class="txt">Chocolate Buttercream Frosting <span class="note">(recipe below)</span></span></label></li>
+          </ul>
+          <div class="progress">
+            <div class="bar"><span></span></div>
+            <span class="lbl">0 / 13</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>👩‍🍳 Instructions</h3>
+          <p class="hint">Preheat to 350°F.</p>
+          <ol class="steps">
+            <li><span class="step-text">Preheat oven to 350°F. Prepare two 9-inch cake pans by spraying with baking spray, buttering and lightly flouring, or brushing them with homemade chocolate pan release.</span></li>
+            <li><span class="step-text">Add flour, sugar, cocoa, baking powder, baking soda, salt and espresso powder to a large bowl or the bowl of a stand mixer. Whisk through to combine or, using your paddle attachment, stir the flour mixture until combined well.</span></li>
+            <li><span class="step-text">Add milk, vegetable oil, eggs, and vanilla to the flour mixture and mix together on medium speed until well combined. Reduce speed and carefully add the boiling water to the cake batter until well combined.</span></li>
+            <li><span class="step-text">Distribute the cake batter evenly between the two prepared cake pans. Bake for 30–35 minutes, until a toothpick or cake tester inserted in the center of the chocolate cake comes out clean.</span></li>
+            <li><span class="step-text">Remove from the oven and allow to cool for about 10 minutes, then remove from the pan and cool completely.</span></li>
+            <li><span class="step-text">Frost the cake with the Chocolate Buttercream Frosting.</span></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="nutrition">
+        <h4>📊 Nutrition (per serving)</h4>
+        <div class="nut-grid">
+          <div class="nut"><div class="v">124</div><div class="k">Calories</div></div>
+          <div class="nut"><div class="v">27 g</div><div class="k">Carbs</div></div>
+          <div class="nut"><div class="v">3 g</div><div class="k">Protein</div></div>
+          <div class="nut"><div class="v">1 g</div><div class="k">Fat</div></div>
+          <div class="nut"><div class="v">17 g</div><div class="k">Sugar</div></div>
+          <div class="nut"><div class="v">178 mg</div><div class="k">Sodium</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FROSTING ============ -->
+    <section class="recipe" id="frosting">
+      <div class="sec-head">
+        <div class="ico">🍫</div>
+        <div>
+          <h2>Perfect Chocolate Buttercream Frosting</h2>
+        </div>
+      </div>
+
+      <div class="meta">
+        <span class="badge"><span class="b-ico">⏱️</span> 15 min total</span>
+        <span class="badge"><span class="b-ico">🥣</span> No-bake</span>
+        <span class="badge"><span class="b-ico">🎯</span> Great for spreading &amp; piping</span>
+      </div>
+
+      <div class="cols">
+        <div class="panel">
+          <h3>🥣 Ingredients</h3>
+          <p class="hint">Fluffy, not-too-sweet, deeply chocolatey.</p>
+          <ul class="ings" data-ings>
+            <li><label><input type="checkbox"><span class="txt">1½ cups butter <span class="note">(softened)</span></span></label></li>
+            <li><label><input type="checkbox"><span class="txt">1 cup unsweetened cocoa powder</span></label></li>
+            <li><label><input type="checkbox"><span class="txt">5 cups confectioner's sugar</span></label></li>
+            <li><label><input type="checkbox"><span class="txt">½ cup milk <span class="note">(whole, half &amp; half, or heavy cream preferred)</span></span></label></li>
+            <li><label><input type="checkbox"><span class="txt">2 teaspoons vanilla extract</span></label></li>
+            <li><label><input type="checkbox"><span class="txt">½ teaspoon espresso powder</span></label></li>
+          </ul>
+          <div class="progress">
+            <div class="bar"><span></span></div>
+            <span class="lbl">0 / 6</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>👩‍🍳 Instructions</h3>
+          <p class="hint">Use a stand mixer on high for the fluff.</p>
+          <ol class="steps">
+            <li><span class="step-text">Beat the cocoa powder and butter until creamy. Whisk the cocoa powder in a large bowl to remove any lumps. Add the softened butter and cream together until well combined and creamy.</span></li>
+            <li><span class="step-text">Add the sugar and milk. Alternately mix in the confectioner's sugar and the milk. After each addition, mix on HIGH speed for about a minute. This is a key step and makes the frosting fluffy and delicious!</span></li>
+            <li><span class="step-text">Add the vanilla extract and espresso powder. Mix until well combined.</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Recipes from <a href="https://addapinch.com" target="_blank" rel="noopener">Add a Pinch</a> by Robyn Stone.
+      Cake: <a href="https://addapinch.com/the-best-chocolate-cake-recipe-ever/" target="_blank" rel="noopener">The Best Chocolate Cake Recipe</a> ·
+      Frosting: <a href="https://addapinch.com/perfect-chocolate-buttercream-frosting-recipe/" target="_blank" rel="noopener">Perfect Chocolate Buttercream Frosting</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // Ingredient checkboxes: strike-through + progress bar
+    document.querySelectorAll('[data-ings]').forEach(function(list){
+      var boxes = list.querySelectorAll('input[type=checkbox]');
+      var section = list.closest('section.recipe');
+      var bar = section.querySelector('.progress .bar > span');
+      var lbl = section.querySelector('.progress .lbl');
+      var total = boxes.length;
+      function update(){
+        var done = 0;
+        boxes.forEach(function(b){
+          var li = b.closest('li');
+          if(b.checked){ done++; li.classList.add('done'); }
+          else { li.classList.remove('done'); }
+        });
+        if(bar) bar.style.width = (total ? (done/total*100) : 0) + '%';
+        if(lbl) lbl.textContent = done + ' / ' + total;
+      }
+      boxes.forEach(function(b){ b.addEventListener('change', update); });
+      update();
+    });
+  </script>
+</body>
+</html>
