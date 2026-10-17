@@ -20,7 +20,7 @@
 <script>
   let files = [];
 
-  fetch("manifest.json")
+  fetch("manifest.json", { cache: "no-store" })
     .then(res => {
       if (!res.ok) throw new Error(`Got ${res.status} fetching manifest`);
       return res.json();
