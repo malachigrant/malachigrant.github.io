@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Frog</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #bfe3ff 0%, #d8f0ff 55%, #cdeacd 55%, #b7e0b0 100%);
+    font-family: "Segoe UI", system-ui, sans-serif;
+    overflow: hidden;
+  }
+
+  h1 {
+    color: #2d5016;
+    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .caption {
+    color: #3a6b2a;
+    margin-top: 4px;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  /* ---------- Scene ---------- */
+  .scene {
+    position: relative;
+    width: 420px;
+    height: 380px;
+    margin-top: 20px;
+  }
+
+  /* ---------- Frog ---------- */
+  .frog {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    left: 50px;
+    top: 20px;
+    animation: hop 3s ease-in-out infinite;
+    transform-origin: center bottom;
+  }
+
+  @keyframes hop {
+    0%, 100% { transform: translateY(0) scaleY(1); }
+    15%      { transform: translateY(-6px) scaleY(1.03); }
+    30%      { transform: translateY(0) scaleY(0.96); }
+  }
+
+  /* Body */
+  .body {
+    position: absolute;
+    width: 230px;
+    height: 205px;
+    left: 45px;
+    top: 70px;
+    background: radial-gradient(circle at 50% 35%, #5aa044 0%, #4a8c3f 55%, #3f7a35 100%);
+    border-radius: 52% 52% 48% 48%;
+    box-shadow: inset -12px -14px 24px rgba(0,0,0,0.12);
+    z-index: 3;
+  }
+
+  /* Belly */
+  .belly {
+    position: absolute;
+    width: 150px;
+    height: 130px;
+    left: 85px;
+    top: 130px;
+    background: radial-gradient(circle at 50% 40%, #c9e6a6 0%, #a8d08d 70%);
+    border-radius: 50%;
+    z-index: 4;
+  }
+
+  /* Eyes */
+  .eye {
+    position: absolute;
+    width: 78px;
+    height: 78px;
+    background: radial-gradient(circle at 40% 35%, #ffffff 0%, #eef4e6 100%);
+    border-radius: 50%;
+    top: 24px;
+    box-shadow: inset -6px -6px 12px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.10);
+    z-index: 5;
+  }
+  .eye.left  { left: 48px; }
+  .eye.right { right: 48px; }
+
+  .pupil {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    background: radial-gradient(circle at 35% 30%, #3a5a24 0%, #24401a 70%);
+    border-radius: 50%;
+    top: 46px;
+    z-index: 6;
+  }
+  .pupil.left  { left: 70px; }
+  .pupil.right { right: 70px; }
+
+  .glint {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border-radius: 50%;
+    top: 50px;
+    z-index: 7;
+  }
+  .glint.left  { left: 76px; }
+  .glint.right { right: 76px; }
+
+  /* Nostrils */
+  .nostril {
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    background: #2d5016;
+    border-radius: 50%;
+    top: 128px;
+    z-index: 5;
+  }
+  .nostril.left  { left: 128px; }
+  .nostril.right { right: 128px; }
+
+  /* Mouth */
+  .mouth {
+    position: absolute;
+    width: 130px;
+    height: 62px;
+    left: 95px;
+    top: 150px;
+    border-bottom: 5px solid #2d5016;
+    border-radius: 0 0 50% 50%;
+    z-index: 5;
+  }
+
+  /* Legs */
+  .leg {
+    position: absolute;
+    background: linear-gradient(180deg, #4a8c3f 0%, #3f7a35 100%);
+    border-radius: 22px;
+    z-index: 2;
+  }
+
+  /* Front legs (short, splayed) */
+  .leg.front-left {
+    width: 44px;
+    height: 78px;
+    left: 30px;
+    top: 210px;
+    transform: rotate(28deg);
+  }
+  .leg.front-right {
+    width: 44px;
+    height: 78px;
+    right: 30px;
+    top: 210px;
+    transform: rotate(-28deg);
+  }
+
+  /* Back legs (longer, folded) */
+  .leg.back-left {
+    width: 60px;
+    height: 92px;
+    left: 60px;
+    top: 235px;
+    transform: rotate(14deg);
+    border-radius: 30px 30px 22px 22px;
+  }
+  .leg.back-right {
+    width: 60px;
+    height: 92px;
+    right: 60px;
+    top: 235px;
+    transform: rotate(-14deg);
+    border-radius: 30px 30px 22px 22px;
+  }
+
+  /* Toes */
+  .toe {
+    position: absolute;
+    width: 16px;
+    height: 26px;
+    background: #3f7a35;
+    border-radius: 50%;
+    z-index: 2;
+  }
+
+  /* Front-left toes */
+  .toe.fl1 { left: 14px;  top: 278px; transform: rotate(20deg); }
+  .toe.fl2 { left: 34px;  top: 284px; transform: rotate(0deg); }
+  .toe.fl3 { left: 54px;  top: 284px; transform: rotate(-20deg); }
+
+  /* Front-right toes */
+  .toe.fr1 { right: 14px; top: 278px; transform: rotate(-20deg); }
+  .toe.fr2 { right: 34px; top: 284px; transform: rotate(0deg); }
+  .toe.fr3 { right: 54px; top: 284px; transform: rotate(20deg); }
+
+  /* Spots on body */
+  .spot {
+    position: absolute;
+    background: rgba(45, 80, 22, 0.35);
+    border-radius: 50%;
+    z-index: 4;
+  }
+  .spot.s1 { width: 22px; height: 22px; left: 70px;  top: 100px; }
+  .spot.s2 { width: 16px; height: 16px; left: 230px; top: 110px; }
+  .spot.s3 { width: 18px; height: 18px; left: 200px; top: 175px; }
+  .spot.s4 { width: 14px; height: 14px; left: 95px;  top: 185px; }
+
+  /* ---------- Pond / ground accents ---------- */
+  .grass {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(180deg, #b7e0b0 0%, #9fd09a 100%);
+    border-radius: 50% 50% 0 0 / 30px 30px 0 0;
+    z-index: 0;
+  }
+
+  .lily {
+    position: absolute;
+    width: 90px;
+    height: 40px;
+    background: radial-gradient(circle at 40% 40%, #6fae5a 0%, #4f8c3f 100%);
+    border-radius: 50%;
+    z-index: 1;
+  }
+  .lily.l1 { left: 10px;  bottom: 18px; }
+  .lily.l2 { right: 14px; bottom: 26px; transform: scale(0.8); }
+
+  .flower {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #ff8fb1;
+    border-radius: 50%;
+    z-index: 2;
+  }
+  .flower.f1 { left: 44px;  bottom: 52px; }
+  .flower.f2 { right: 48px; bottom: 58px; background: #ffd36e; }
+</style>
+</head>
+<body>
+  <h1>Meet the Frog</h1>
+  <div class="scene">
+    <div class="grass"></div>
+    <div class="lily l1"></div>
+    <div class="lily l2"></div>
+    <div class="flower f1"></div>
+    <div class="flower f2"></div>
+
+    <div class="frog">
+      <!-- Legs (behind body) -->
+      <div class="leg back-left"></div>
+      <div class="leg back-right"></div>
+      <div class="leg front-left"></div>
+      <div class="leg front-right"></div>
+
+      <!-- Toes -->
+      <div class="toe fl1"></div>
+      <div class="toe fl2"></div>
+      <div class="toe fl3"></div>
+      <div class="toe fr1"></div>
+      <div class="toe fr2"></div>
+      <div class="toe fr3"></div>
+
+      <!-- Body -->
+      <div class="body"></div>
+      <div class="belly"></div>
+
+      <!-- Spots -->
+      <div class="spot s1"></div>
+      <div class="spot s2"></div>
+      <div class="spot s3"></div>
+      <div class="spot s4"></div>
+
+      <!-- Eyes -->
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="pupil left"></div>
+      <div class="pupil right"></div>
+      <div class="glint left"></div>
+      <div class="glint right"></div>
+
+      <!-- Nostrils & mouth -->
+      <div class="nostril left"></div>
+      <div class="nostril right"></div>
+      <div class="mouth"></div>
+    </div>
+  </div>
+  <p class="caption">100% CSS &middot; no images &middot; gently hopping</p>
+</body>
+</html>
