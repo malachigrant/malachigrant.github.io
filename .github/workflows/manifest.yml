@@ -1,4 +1,4 @@
-name: Regenerate artifact manifest
+name: Regenerate page manifest
 
 on:
   push:
@@ -16,8 +16,8 @@ jobs:
           python3 - <<'EOF'
           import json, os
           files = sorted(
-              f for f in os.listdir("artifacts")
-              if os.path.isfile(os.path.join("artifacts", f))
+              f for f in os.listdir("pages")
+              if os.path.isfile(os.path.join("pages", f))
           )
           with open("manifest.json", "w") as fh:
               json.dump({"files": files}, fh, indent=2)
@@ -30,6 +30,6 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add manifest.json
           if ! git diff --cached --quiet; then
-            git commit -m "Regenerate artifact manifest"
+            git commit -m "Regenerate page manifest"
             git push
           fi
