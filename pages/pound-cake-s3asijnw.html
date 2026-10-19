@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classic Pound Cake Recipe</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #fdf6ea;
+    --paper: #fffdf8;
+    --brown: #6b4a2b;
+    --brown-dark: #4a3320;
+    --gold: #c98a2e;
+    --gold-soft: #e7b96b;
+    --line: #e8d9bf;
+    --text: #4a3a28;
+    --muted: #8a7355;
+  }
+
+  body {
+    font-family: "Georgia", "Times New Roman", serif;
+    background:
+      radial-gradient(circle at 20% 10%, #fff7e6 0%, transparent 45%),
+      linear-gradient(180deg, #f6ead2 0%, var(--cream) 40%, #f3e6cf 100%);
+    color: var(--text);
+    line-height: 1.65;
+    padding: 40px 16px 64px;
+  }
+
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ---------- header ---------- */
+  header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .kicker {
+    display: inline-block;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(201, 138, 46, 0.12);
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: 44px;
+    color: var(--brown-dark);
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .subtitle {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 18px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ---------- meta chips ---------- */
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 22px;
+    font-family: "Segoe UI", system-ui, sans-serif;
+  }
+  .chip {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 10px 18px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(90, 60, 20, 0.06);
+  }
+  .chip .label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .chip .value {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brown);
+  }
+
+  /* ---------- card sections ---------- */
+  section {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 30px 34px;
+    margin-bottom: 28px;
+    box-shadow: 0 6px 20px rgba(90, 60, 20, 0.07);
+  }
+
+  h2 {
+    font-size: 26px;
+    color: var(--brown-dark);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--gold-soft);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  h2 .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ---------- ingredients ---------- */
+  .ingredients {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 28px;
+  }
+  .ingredients li {
+    position: relative;
+    padding-left: 30px;
+    font-size: 16.5px;
+  }
+  .ingredients li::before {
+    content: "▢";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--gold);
+    font-size: 18px;
+  }
+  .ingredients .amt { color: var(--brown); font-weight: 700; }
+  sup { color: var(--gold); font-weight: 700; }
+
+  /* ---------- instructions ---------- */
+  ol.steps {
+    list-style: none;
+    counter-reset: step;
+  }
+  ol.steps li {
+    counter-increment: step;
+    position: relative;
+    padding: 0 0 22px 58px;
+  }
+  ol.steps li:last-child { padding-bottom: 0; }
+  ol.steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(160deg, var(--gold-soft), var(--gold));
+    color: #fff;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(150, 100, 30, 0.3);
+  }
+  ol.steps li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 19px;
+    top: 42px;
+    bottom: 2px;
+    width: 2px;
+    background: var(--line);
+  }
+  ol.steps li p { font-size: 16.5px; }
+  .tip {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  /* ---------- notes ---------- */
+  .note {
+    border-left: 4px solid var(--gold-soft);
+    background: #fbf3e2;
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .note:last-child { margin-bottom: 0; }
+  .note h3 {
+    font-size: 17px;
+    color: var(--brown);
+    margin-bottom: 6px;
+  }
+  .note p { font-size: 15.5px; }
+  .warn {
+    color: #a13a1a;
+    font-weight: 700;
+  }
+
+  /* ---------- nutrition ---------- */
+  .nutrition {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+  .nut {
+    background: #fbf3e2;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .nut .n-label {
+    display: block;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .nut .n-value {
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--brown);
+  }
+  .serving {
+    text-align: center;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 18px;
+    font-size: 15px;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 620px) {
+    h1 { font-size: 34px; }
+    section { padding: 24px 20px; }
+    .ingredients { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="kicker">Baking Classic</span>
+      <h1>Classic Pound Cake</h1>
+      <p class="subtitle">Rich, dense, and buttery — a timeless cake that rewards a little patience with an unforgettable crumb.</p>
+      <div class="meta">
+        <div class="chip"><span class="label">Serves</span><span class="value">12 slices</span></div>
+        <div class="chip"><span class="label">Prep</span><span class="value">25 min</span></div>
+        <div class="chip"><span class="label">Bake</span><span class="value">70–75 min</span></div>
+        <div class="chip"><span class="label">Oven</span><span class="value">350°F / 175°C</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2><span class="dot"></span>Ingredients</h2>
+      <ul class="ingredients">
+        <li><span class="amt">2 cups (455 g)</span> unsalted butter, softened</li>
+        <li><span class="amt">3 ½ cups (700 g)</span> granulated sugar</li>
+        <li><span class="amt">6 large</span> whole eggs<sup>1</sup></li>
+        <li><span class="amt">6 large</span> egg yolks<sup>1</sup> <em>(in addition to the 6 whole eggs)</em></li>
+        <li><span class="amt">1 Tablespoon</span> vanilla extract</li>
+        <li><span class="amt">1 teaspoon</span> salt</li>
+        <li><span class="amt">3 ½ cups (438 g)</span> all-purpose (plain) flour<sup>2</sup></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2><span class="dot"></span>Instructions</h2>
+      <ol class="steps">
+        <li><p>Preheat your oven to <strong>350°F (175°C)</strong> and generously grease (with shortening) and flour a 10-inch tube pan or 12-cup bundt pan (the pan must be able to hold 12 cups). Shake out excess flour and set aside.</p></li>
+        <li><p>Place your butter in a large bowl and use an electric mixer to beat it until creamy and smooth.</p><span class="tip">This recipe makes a lot of batter — a stand mixer is highly recommended.</span></li>
+        <li><p>Scrape down the sides of the bowl and add the sugar. Beat until well combined and light and fluffy (about 1–2 minutes).</p></li>
+        <li><p>In a separate, medium-sized bowl, combine your eggs, additional egg yolks, vanilla extract, and salt.</p></li>
+        <li><p>Use a fork to lightly beat the eggs and yolks until all egg yolks are broken up and the salt and vanilla are incorporated.</p></li>
+        <li><p>With the mixer on low speed, slowly pour the egg mixture into your batter, allowing it to gradually become incorporated.</p><span class="tip">Don't pour it all in at once — if you can't manage a steady stream, add it in about 6 parts, letting each part become well incorporated before adding more. Once all is in, scrape down the sides and bottom, then increase to medium-high and beat for another 1–2 minutes.</span></li>
+        <li><p>Reduce the mixer speed to low and gradually, about ¼ cup at a time, add the flour until all has been added.</p></li>
+        <li><p>Scrape down the sides and bottom of the bowl and stir again on medium speed until well-combined, then beat for another minute.</p></li>
+        <li><p>Spread the batter evenly into the prepared tube pan and use a spatula to smooth the surface.</p></li>
+        <li><p>Transfer to the 350°F (175°C) oven and bake on the center rack for <strong>1 hour 10 minutes to 1 hour 15 minutes</strong>, or until a wooden skewer inserted in the thickest part comes out clean or with a few moist crumbs.</p><span class="tip">Do NOT over-bake this cake or it will be dry.</span></li>
+        <li><p>Allow the cake to cool for at least 20 minutes, then run a knife around the sides of the tube pan and the center.</p></li>
+        <li><p>Carefully invert the pound cake onto a cooling rack and allow it to cool completely before serving.</p></li>
+      </ol>
+    </section>
+
+    <section>
+      <h2><span class="dot"></span>Notes</h2>
+      <div class="note">
+        <h3><sup>1</sup> Eggs</h3>
+        <p>You need a total of <strong>12 eggs</strong> for this recipe, but you'll only use <strong>6 whole eggs</strong> plus <strong>6 additional egg yolks</strong>. That means you'll be discarding 6 egg whites — or save them to make meringue cookies or a white cake.</p>
+      </div>
+      <div class="note">
+        <h3><sup>2</sup> Cake Flour</h3>
+        <p>You can substitute cake flour. If measuring by weight (which you really should be!), do a straight <strong>1:1 substitute</strong>. If measuring by cups, you'll need <strong>3 ¾ cup + 2 Tablespoons</strong> of cake flour. The cake turns out just as well — slightly softer and a smidge less dense. You do <em>not</em> need to add baking powder. <span class="warn">DO NOT UNDER ANY CIRCUMSTANCES USE SELF-RISING FLOUR.</span></p>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="dot"></span>Nutrition</h2>
+      <p class="serving">Per serving: 1 slice</p>
+      <div class="nutrition">
+        <div class="nut"><span class="n-label">Calories</span><span class="n-value">696 kcal</span></div>
+        <div class="nut"><span class="n-label">Carbs</span><span class="n-value">87 g</span></div>
+        <div class="nut"><span class="n-label">Protein</span><span class="n-value">9 g</span></div>
+        <div class="nut"><span class="n-label">Fat</span><span class="n-value">36 g</span></div>
+        <div class="nut"><span class="n-label">Sat. Fat</span><span class="n-value">21 g</span></div>
+        <div class="nut"><span class="n-label">Trans Fat</span><span class="n-value">1 g</span></div>
+        <div class="nut"><span class="n-label">Cholesterol</span><span class="n-value">267 mg</span></div>
+        <div class="nut"><span class="n-label">Sodium</span><span class="n-value">239 mg</span></div>
+        <div class="nut"><span class="n-label">Potassium</span><span class="n-value">95 mg</span></div>
+        <div class="nut"><span class="n-label">Fiber</span><span class="n-value">1 g</span></div>
+        <div class="nut"><span class="n-label">Sugar</span><span class="n-value">59 g</span></div>
+        <div class="nut"><span class="n-label">Vitamin A</span><span class="n-value">1203 IU</span></div>
+        <div class="nut"><span class="n-label">Calcium</span><span class="n-value">40 mg</span></div>
+        <div class="nut"><span class="n-label">Iron</span><span class="n-value">2 mg</span></div>
+      </div>
+    </section>
+
+    <footer>Happy baking! 🍰</footer>
+  </div>
+</body>
+</html>
