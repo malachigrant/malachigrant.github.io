@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Clicker</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 50%, #2c1810 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #f5e6d3;
+  overflow-x: hidden;
+}
+
+h1 {
+  margin-top: 20px;
+  font-size: 2.5rem;
+  text-shadow: 0 0 20px rgba(255, 180, 80, 0.5);
+  letter-spacing: 2px;
+}
+
+.stats {
+  display: flex;
+  gap: 30px;
+  margin: 15px 0;
+  font-size: 1.2rem;
+}
+
+.stats span {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.game-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 20px;
+}
+
+.cookie-container {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cookie {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #d4923a, #a06020 60%, #704018);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 -5px 15px rgba(0,0,0,0.3);
+  transition: transform 0.1s;
+  position: relative;
+}
+
+.cookie:active {
+  transform: scale(0.92);
+}
+
+.cookie::before {
+  content: '';
+  position: absolute;
+  top: 30px; left: 40px;
+  width: 25px; height: 20px;
+  background: #5a3010;
+  border-radius: 50%;
+  box-shadow: 60px 20px 0 #5a3010, 20px 50px 0 #5a3010, 80px 60px 0 #5a3010, 40px 90px 0 #5a3010, 10px 70px 0 #5a3010;
+}
+
+.float-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 200, 0, 0.8);
+  pointer-events: none;
+  animation: floatUp 1s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -150%) scale(1.5); }
+}
+
+.shop {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  min-width: 280px;
+}
+
+.shop h2 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  color: #ffd700;
+}
+
+.upgrade {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.upgrade:hover:not(.disabled) {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: rgba(255, 215, 0, 0.3);
+  transform: translateX(5px);
+}
+
+.upgrade.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.upgrade-info h3 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.upgrade-info p {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.upgrade-cost {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffd700;
+  white-space: nowrap;
+}
+
+.upgrade-owned {
+  font-size: 0.8rem;
+  color: #8f8;
+  margin-top: 2px;
+}
+
+.mult-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  color: #1a0a00;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 6px;
+  vertical-align: middle;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 200, 100, 0.3);
+  border-radius: 50%;
+  animation: drift linear infinite;
+}
+
+@keyframes drift {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+
+.milestone {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.9);
+  border: 3px solid #ffd700;
+  border-radius: 20px;
+  padding: 30px 50px;
+  font-size: 1.5rem;
+  text-align: center;
+  z-index: 100;
+  animation: milestonePop 2s ease-out forwards;
+}
+
+@keyframes milestonePop {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  20% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  30% { transform: translate(-50%, -50%) scale(1); }
+  80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+}
+
+.per-second {
+  font-size: 0.9rem;
+  color: #aaa;
+  text-align: center;
+  margin-top: 5px;
+}
+</style>
+</head>
+<body>
+
+<h1>🍪 Cookie Clicker</h1>
+
+<div class="stats">
+  <span>🍪 <span id="cookies">0</span> cookies</span>
+  <span>⚡ <span id="per-click">1</span>/click</span>
+</div>
+<div class="per-second">📈 <span id="per-second">0</span> cookies/second</div>
+
+<div class="game-area">
+  <div class="cookie-container" id="cookie-btn">
+    <div class="cookie" id="cookie"></div>
+  </div>
+
+  <div class="shop">
+    <h2>🏪 Upgrade Shop</h2>
+    <div id="upgrades"></div>
+  </div>
+</div>
+
+<div class="particles" id="particles"></div>
+
+<script>
+let cookies = 0;
+let perClick = 1;
+let perSecond = 0;
+
+const upgrades = [
+  { name: "👆 Better Finger", desc: "+1 per click", cost: 10, type: "click", value: 1, owned: 0 },
+  { name: "🥛 Milk Machine", desc: "+1 per second", cost: 25, type: "second", value: 1, owned: 0 },
+  { name: "🧈 Butter Upgrade", desc: "+2 per click", cost: 50, type: "click", value: 2, owned: 0 },
+  { name: "🏭 Cookie Factory", desc: "+5 per second", cost: 200, type: "second", value: 5, owned: 0 },
+  { name: "✨ Magic Dust", desc: "+10 per click", cost: 500, type: "click", value: 10, owned: 0 },
+  { name: "🚀 Rocket Oven", desc: "+20 per second", cost: 1000, type: "second", value: 20, owned: 0 },
+  { name: "🔮 Time Warp", desc: "+50 per second", cost: 2500, type: "second", value: 50, owned: 0 },
+  { name: "🌍 Cookie Planet", desc: "+100 per second", cost: 5000, type: "second", value: 100, owned: 0 },
+];
+
+const milestones = [100, 500, 1000, 5000, 10000, 50000, 100000];
+let milestoneIndex = 0;
+
+const MILESTONE_THRESHOLDS = [
+  { at: 10, mult: 2, label: "x2" },
+  { at: 20, mult: 3, label: "x3" },
+  { at: 50, mult: 5, label: "x5" },
+];
+
+function getMultiplier(owned) {
+  let mult = 1;
+  for (const m of MILESTONE_THRESHOLDS) {
+    if (owned >= m.at) mult = m.mult;
+  }
+  return mult;
+}
+
+function getNextMilestone(owned) {
+  for (const m of MILESTONE_THRESHOLDS) {
+    if (owned < m.at) return m;
+  }
+  return null;
+}
+
+function recalculate() {
+  perClick = 1;
+  perSecond = 0;
+  upgrades.forEach(u => {
+    const mult = getMultiplier(u.owned);
+    const total = u.owned * u.value * mult;
+    if (u.type === 'click') perClick += total;
+    if (u.type === 'second') perSecond += total;
+  });
+}
+
+function updateDisplay() {
+  document.getElementById('cookies').textContent = Math.floor(cookies).toLocaleString();
+  document.getElementById('per-click').textContent = perClick;
+  document.getElementById('per-second').textContent = perSecond.toLocaleString();
+  renderUpgrades();
+}
+
+function renderUpgrades() {
+  const container = document.getElementById('upgrades');
+  container.innerHTML = '';
+  upgrades.forEach((u, i) => {
+    const cost = Math.floor(u.cost * Math.pow(1.5, u.owned));
+    const disabled = cookies < cost;
+    const mult = getMultiplier(u.owned);
+    const next = getNextMilestone(u.owned);
+    const div = document.createElement('div');
+    div.className = 'upgrade' + (disabled ? ' disabled' : '');
+    div.innerHTML = `
+      <div class="upgrade-info">
+        <h3>${u.name} ${mult > 1 ? `<span class="mult-badge">${mult > 1 ? 'x' + mult : ''}</span>` : ''}</h3>
+        <p>${u.desc}</p>
+        ${u.owned > 0 ? `<div class="upgrade-owned">Owned: ${u.owned}${next ? ` · next bonus at ${next.at} (x${next.mult})` : ''}</div>` : ''}
+      </div>
+      <div class="upgrade-cost">${cost.toLocaleString()}</div>
+    `;
+    if (!disabled) {
+      div.addEventListener('click', () => buyUpgrade(i));
+    }
+    container.appendChild(div);
+  });
+}
+
+function buyUpgrade(index) {
+  const u = upgrades[index];
+  const cost = Math.floor(u.cost * Math.pow(1.5, u.owned));
+  if (cookies >= cost) {
+    cookies -= cost;
+    u.owned++;
+    recalculate();
+    // Check if we just hit a milestone purchase
+    for (const m of MILESTONE_THRESHOLDS) {
+      if (u.owned === m.at) {
+        showMilestoneBonus(u.name, m);
+      }
+    }
+    updateDisplay();
+  }
+}
+
+function showMilestoneBonus(upgradeName, milestone) {
+  const el = document.createElement('div');
+  el.className = 'milestone';
+  el.innerHTML = `⚡ Milestone Bonus! ⚡<br><span style="font-size:1.3rem">${upgradeName}</span><br><span style="font-size:2rem;color:#ffd700">${milestone.label}</span><br>power unlocked!`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2000);
+}
+
+function showFloatText(amount) {
+  const container = document.getElementById('cookie-btn');
+  const el = document.createElement('div');
+  el.className = 'float-text';
+  el.textContent = '+' + amount;
+  container.appendChild(el);
+  setTimeout(() => el.remove(), 1000);
+}
+
+function checkMilestone() {
+  if (milestoneIndex < milestones.length && cookies >= milestones[milestoneIndex]) {
+    const el = document.createElement('div');
+    el.className = 'milestone';
+    el.innerHTML = `🎉 Milestone! 🎉<br><span style="font-size:2rem;color:#ffd700">${milestones[milestoneIndex].toLocaleString()}</span><br>cookies baked!`;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 2000);
+    milestoneIndex++;
+  }
+}
+
+document.getElementById('cookie-btn').addEventListener('click', () => {
+  cookies += perClick;
+  showFloatText(perClick);
+  checkMilestone();
+  updateDisplay();
+});
+
+setInterval(() => {
+  if (perSecond > 0) {
+    cookies += perSecond;
+    checkMilestone();
+    updateDisplay();
+  }
+}, 1000);
+
+function createParticles() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = Math.random() * 10 + 's';
+    p.style.width = (4 + Math.random() * 8) + 'px';
+    p.style.height = p.style.width;
+    container.appendChild(p);
+  }
+}
+
+createParticles();
+updateDisplay();
+</script>
+</body>
+</html>
