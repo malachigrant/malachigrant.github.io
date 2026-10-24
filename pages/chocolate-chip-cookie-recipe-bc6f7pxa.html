@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Chocolate Chip Cookies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #fdf6ee;
+            color: #3d2c1e;
+            line-height: 1.7;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #8b5e3c 0%, #c4874f 50%, #e8a85c 100%);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 8s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10%, 10%); }
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+            position: relative;
+        }
+
+        .recipe-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+            position: relative;
+        }
+
+        .meta-item {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+
+        .meta-item strong {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section {
+            margin-bottom: 45px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #6b3a1f;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e8a85c;
+            display: inline-block;
+        }
+
+        /* Unit Toggle */
+        .unit-toggle {
+            display: inline-flex;
+            background: #fff;
+            border-radius: 25px;
+            padding: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .unit-btn {
+            padding: 8px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: #6b3a1f;
+            transition: all 0.3s;
+        }
+
+        .unit-btn.active {
+            background: linear-gradient(135deg, #c4874f, #e8a85c);
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .unit-btn:not(.active):hover {
+            background: #f5e6d3;
+        }
+
+        /* Ingredients */
+        .ingredients-list {
+            list-style: none;
+        }
+
+        .ingredients-list li {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: #fff;
+            border-radius: 8px;
+            border-left: 4px solid #c4874f;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
+        }
+
+        .ingredients-list li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .ingredients-list li.fading {
+            opacity: 0;
+        }
+
+        .check {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #c4874f;
+            border-radius: 5px;
+            flex-shrink: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            margin-top: 2px;
+        }
+
+        .check.checked {
+            background: #c4874f;
+        }
+
+        .check.checked::after {
+            content: '✓';
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .ing-amount {
+            font-weight: bold;
+            color: #6b3a1f;
+            min-width: 90px;
+            flex-shrink: 0;
+        }
+
+        .ing-name {
+            flex: 1;
+        }
+
+        .ing-note {
+            display: block;
+            font-size: 0.82rem;
+            color: #8b6040;
+            font-style: italic;
+            margin-top: 4px;
+            padding-left: 10px;
+            border-left: 2px solid #e8a85c;
+        }
+
+        /* Instructions */
+        .instructions-ol {
+            list-style: none;
+            counter-reset: step;
+        }
+
+        .instructions-ol li {
+            counter-increment: step;
+            padding: 18px 20px 18px 70px;
+            margin-bottom: 12px;
+            background: #fff;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            transition: transform 0.2s;
+        }
+
+        .instructions-ol li:hover {
+            transform: scale(1.01);
+        }
+
+        .instructions-ol li::before {
+            content: counter(step);
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #c4874f, #e8a85c);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Notes */
+        .notes-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .note-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #8b5e3c;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        .note-card h4 {
+            color: #6b3a1f;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .note-card p {
+            font-size: 0.95rem;
+            color: #5a4030;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border: 2px solid #e8a85c;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .warning h3 {
+            color: #6b3a1f;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .warning p {
+            font-size: 1rem;
+            color: #5a4030;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: #6b3a1f;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .recipe-meta {
+                gap: 10px;
+            }
+
+            .meta-item {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+            }
+
+            .instructions-ol li {
+                padding: 15px 15px 15px 60px;
+            }
+
+            .instructions-ol li::before {
+                width: 32px;
+                height: 32px;
+                left: 12px;
+                font-size: 0.95rem;
+            }
+
+            .ing-amount {
+                min-width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>🍪 Best Chocolate Chip Cookies</h1>
+        <p>Thick, chewy, and absolutely perfect — the secret is not overbaking!</p>
+        <div class="recipe-meta">
+            <div class="meta-item">
+                <strong>Yield</strong>
+                36 cookies
+            </div>
+            <div class="meta-item">
+                <strong>Prep</strong>
+                20 min
+            </div>
+            <div class="meta-item">
+                <strong>Bake</strong>
+                8–10 min
+            </div>
+            <div class="meta-item">
+                <strong>Cookie weight</strong>
+                40–45 g each
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Ingredients -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Ingredients</h2>
+                <div class="unit-toggle">
+                    <button class="unit-btn active" id="btn-us" onclick="switchUnit('us')">US Customary</button>
+                    <button class="unit-btn" id="btn-metric" onclick="switchUnit('metric')">Metric</button>
+                </div>
+            </div>
+
+            <ul class="ingredients-list" id="ingredients-list">
+                <li>
+                    <span class="check" onclick="this.classList.toggle('checked')"></span>
+                    <span class="ing-amount" data-us="almost 1 cup" data-metric="200 g">almost 1 cup</span>
+                    <span class="ing-name">Salted butter, softened</span>
+                </li>
+                <li>
+                    <span class="check" onclick="this.classList.toggle('checked')"></span>
+                    <span class="ing-amount" data-us="1 cup" data-metric="200 g">1 cup</span>
+                    <span class="ing-name">Granulated sugar</span>
+                </li>
+                <li>
+                    <span class="check" onclick="this.classList.toggle('checked')"></span>
+                    <span class="ing-amount" data-us="1 cup" data-metric="220 g">1 cup</span>
+                    <span class="ing-name">Light brown sugar, packed</span>
+                </li>
+                <li>
+                    <span class="check" onclick="this.classList.toggle('checked')"></span>
+                    <span class="ing-amount" data-us="2 tsp" data-metric="10 ml">2 tsp</span>
+                    <span class="ing-name">Pure vanilla extract</span>
+                </li>
+                <li>
+                    <span class="check" onclick="this.classList.toggle('checked')"></span>
+                    <span class="ing-amount" data-us="2 large" data-metric="2 large">2 large</span>
+                    <span class="ing-name">Eggs</span>
+                </li>
+                <li>
+                    <span class="check" onclick="this.classList.toggle('checked')"></span>
+                    <span class="ing-amount" data-us="3 cups" data-metric="375 g">3 cups</span>
+                    <span class="ing-name">All-purpose flour</span>
+                </li>
+                <li>
+                    <span class="check" onclick="this.classList.toggle('checked')"></span>
+                    <span class="ing-amount" data-us="1 tsp" data-metric="5 g">1 tsp</span>
+                    <span class="ing-name">Baking soda</span>
+                </li>
+                <li>
+                    <span class="check" onclick="this.classList.toggle('checked')"></span>
+                    <span class="ing-amount" data-us="½ tsp" data-metric="2.5 g">½ tsp</span>
+                    <span class="ing-name">Baking powder</span>
+                </li>
+                <li>
+                    <span class="check" onclick="this.classList.toggle('checked')"></span>
+                    <span class="ing-amount" data-us="1 tsp" data-metric="5 g">1 tsp</span>
+                    <span class="ing-name">Sea salt
+                        <span class="ing-note">If using table salt (iodized) instead, start with ½ tsp and adjust to taste.</span>
+                    </span>
+                </li>
+                <li>
+                    <span class="check" onclick="this.classList.toggle('checked')"></span>
+                    <span class="ing-amount" data-us="2 cups" data-metric="340 g">2 cups</span>
+                    <span class="ing-name">Chocolate chips (12 oz)</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Instructions -->
+        <div class="section">
+            <h2 class="section-title">Instructions</h2>
+            <ol class="instructions-ol">
+                <li>Preheat oven to 375°F (190°C). Line three baking sheets with parchment paper and set aside.</li>
+                <li>In a medium bowl, mix flour, baking soda, baking powder, and salt. Set aside.</li>
+                <li>Cream together butter and sugars until combined.</li>
+                <li>Beat in eggs and vanilla until light (about 1 minute).</li>
+                <li>Mix in the dry ingredients until combined.</li>
+                <li>Add chocolate chips and mix well.</li>
+                <li>Roll 2–3 tablespoons of dough at a time into balls and place them evenly spaced on your prepared cookie sheets. <em>(Note: with a 2 Tablespoon cookie scoop, the dough balls weigh 40–45 grams each.)</em></li>
+                <li>Bake in preheated oven for approximately 8–10 minutes. Take them out when they are just barely starting to turn brown.</li>
+                <li>Let them sit on the baking pan for 5 minutes before removing to a cooling rack.</li>
+            </ol>
+        </div>
+
+        <!-- Notes -->
+        <div class="section">
+            <h2 class="section-title">Notes</h2>
+            <div class="notes-grid">
+                <div class="note-card">
+                    <h4>📐 Recipe Information</h4>
+                    <p>Calculated based on this recipe making 36 cookies (2 tablespoons of dough per piece). Metric measurements have been updated to be exact.</p>
+                </div>
+                <div class="note-card">
+                    <h4>⚖️ Weight of Each Cookie</h4>
+                    <p>When using a 2 Tablespoon cookie scoop, the cookie dough balls end up being 40–45 grams each.</p>
+                </div>
+                <div class="note-card">
+                    <h4>🌀 Convection Oven</h4>
+                    <p>Decrease baking temperature by 25 degrees if using a convection oven.</p>
+                </div>
+            </div>
+
+            <div class="warning">
+                <h3>⚠️ Do NOT Overbake!</h3>
+                <p>When you remove the cookies from the oven they will still look doughy. This is the secret that makes these cookies so absolutely amazing! Please, I beg you, do not overbake!</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Made with 🤎 — Enjoy your baking!</p>
+    </footer>
+
+    <script>
+        function switchUnit(unit) {
+            const items = document.querySelectorAll('#ingredients-list li');
+            const btnUs = document.getElementById('btn-us');
+            const btnMetric = document.getElementById('btn-metric');
+
+            // Update amounts
+            items.forEach(item => {
+                const amount = item.querySelector('.ing-amount');
+                if (unit === 'us') {
+                    amount.textContent = amount.dataset.us;
+                } else {
+                    amount.textContent = amount.dataset.metric;
+                }
+            });
+
+            // Update buttons
+            if (unit === 'us') {
+                btnUs.classList.add('active');
+                btnMetric.classList.remove('active');
+            } else {
+                btnMetric.classList.add('active');
+                btnUs.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
